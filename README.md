@@ -1,24 +1,57 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## scores テーブル
 
-Things you may want to cover:
+| Column             | Type      | Options           |
+| ------------------ | --------- | ----------------- |
+| floor_score        | integer   | null: false       |
+| pommel_score       | integer   | null: false       |
+| rings_score        | integer   | null: false       |
+| Vault_score        | integer   | null: false       |
+| parallel_score     | integer   | null: false       |
+| horizontal_score   | integer   | null: false       |
+| athlete            | reference | foreign_key: true |
 
-* Ruby version
+### Association
+- belongs_to :game
+- belongs_to :athlete
 
-* System dependencies
 
-* Configuration
+## games テーブル
 
-* Database creation
+| Column             | Type      | Options                        |
+| ------------------ | ------    | ------------------------------ |
+| game_name          | string    | null: false                    |
+| day                | date      | null: false                    |
+| venue              | string    | null: false                    |
+| prefecture_id      | integer   | null: false                    |
+| score              | reference | null: false, foreign_key: true |
 
-* Database initialization
+### Association
+- has_many :scores
+- has_one  :order
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+## athletes テーブル
 
-* Deployment instructions
+| Column        | Type      | Options           |
+| ------------- | --------- | ----------------- |
+| athlete_name  | string    | null: false       |
+| old           | integer   | null: false       |
+| school_career | string    | null: false       |
+| prefecture_id | integer   | null: false       |
+| affiliation   | reference | foreign_key: true |
 
-* ...
+### Association
+- has_many :scores
+- belongs_to :affiliation
+
+
+## affiliations テーブル
+
+| Column          | Type      | Options     |
+| --------------- | --------- | ------------|
+| affilation_name | string    | null: false |
+
+### Association
+- belongs_to :athlete
