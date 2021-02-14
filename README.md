@@ -4,12 +4,19 @@
 
 | Column             | Type      | Options           |
 | ------------------ | --------- | ----------------- |
-| floor_score        | integer   | null: false       |
-| pommel_score       | integer   | null: false       |
-| rings_score        | integer   | null: false       |
-| Vault_score        | integer   | null: false       |
-| parallel_score     | integer   | null: false       |
-| horizontal_score   | integer   | null: false       |
+| floor_score_d      | integer   | null: false       |
+| floor_score_e      | integer   | null: false       |
+| pommel_score_d     | integer   | null: false       |
+| pommel_score_e     | integer   | null: false       |
+| rings_score_d      | integer   | null: false       |
+| rings_score_e      | integer   | null: false       |
+| Vault_score_d      | integer   | null: false       |
+| Vault_score_e      | integer   | null: false       |
+| parallel_score_d   | integer   | null: false       |
+| parallel_score_e   | integer   | null: false       |
+| horizontal_score_d | integer   | null: false       |
+| horizontal_score_e | integer   | null: false       |
+| memo               | string                        |
 | athlete            | reference | foreign_key: true |
 
 ### Association
@@ -21,7 +28,7 @@
 
 | Column             | Type      | Options                        |
 | ------------------ | ------    | ------------------------------ |
-| game_name          | string    | null: false                    |
+| name               | string    | null: false                    |
 | day                | date      | null: false                    |
 | venue              | string    | null: false                    |
 | prefecture_id      | integer   | null: false                    |
@@ -29,14 +36,12 @@
 
 ### Association
 - has_many :scores
-- has_one  :order
-
 
 ## athletes テーブル
 
 | Column        | Type      | Options           |
 | ------------- | --------- | ----------------- |
-| athlete_name  | string    | null: false       |
+| name          | string    | null: false       |
 | old           | integer   | null: false       |
 | school_career | string    | null: false       |
 | prefecture_id | integer   | null: false       |
@@ -51,7 +56,7 @@
 
 | Column          | Type      | Options     |
 | --------------- | --------- | ------------|
-| affilation_name | string    | null: false |
+| name            | string    | null: false |
 
 ### Association
 - belongs_to :athlete

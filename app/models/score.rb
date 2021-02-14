@@ -1,6 +1,5 @@
 class Score < ApplicationRecord
-  
-  def index
-  end
+  belongs_to :game
+  belongs_to :athlete
 
 end

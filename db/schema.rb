@@ -10,7 +10,54 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_12_092546) do
+ActiveRecord::Schema.define(version: 2021_02_13_132817) do
+
+  create_table "affiliations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "athletes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "old", null: false
+    t.string "school_career"
+    t.integer "prefecture_id", null: false
+    t.bigint "affiliation_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["affiliation_id"], name: "index_athletes_on_affiliation_id"
+  end
+
+  create_table "games", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.date "day", null: false
+    t.string "venue", null: false
+    t.integer "prefecture_id", null: false
+    t.bigint "score_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["score_id"], name: "index_games_on_score_id"
+  end
+
+  create_table "scores", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "floor_score_d"
+    t.integer "floor_score_e"
+    t.integer "pommel_score_d"
+    t.integer "pommel_score_e"
+    t.integer "rings_score_d"
+    t.integer "rings_score_e"
+    t.integer "vault_score_d"
+    t.integer "vault_score_e"
+    t.integer "parallel_score_d"
+    t.integer "parallel_score_e"
+    t.integer "horizontal_score_d"
+    t.integer "horizontal_score_e"
+    t.bigint "athlete_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["athlete_id"], name: "index_scores_on_athlete_id"
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "name", null: false
@@ -25,4 +72,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_092546) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "athletes", "affiliations"
+  add_foreign_key "games", "scores"
+  add_foreign_key "scores", "athletes"
 end
